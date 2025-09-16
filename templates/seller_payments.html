@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Thanh toán phí thường niên{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Thanh toán phí thường niên</h2>
+    <h4 class="mt-4">Đợt thanh toán đang mở</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Tên đợt</th>
+                <th>Thời gian</th>
+                <th>Mô tả</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for period in current_periods %}
+            {% set paid = payment_history | selectattr('iddonthanhtoan', 'equalto', period.iddotthanhtoan) | list %}
+            <tr>
+                <td>{{ period.tendotthanhtoan }}</td>
+                <td>{{ period.ngaybatdau }} - {{ period.ngayketthuc }}</td>
+                <td>{{ period.mota }}</td>
+                <td>
+                    {% if paid %}
+                    {% set payment = paid[0] %}
+                    {% if payment.trangthai == 'Da_Duyet' %}
+                    <span class="badge bg-success">Đã thanh toán</span>
+                    {% elif payment.trangthai == 'Cho_Duyet' %}
+                    <span class="badge bg-warning">Chờ duyệt</span>
+                    {% elif payment.trangthai == 'Tu_Choi' %}
+                    <span class="badge bg-danger">Bị từ chối</span>
+                    <a href="{{ url_for('seller_make_payment', period_id=period.iddotthanhtoan) }}"
+                        class="btn btn-warning btn-sm">Thanh toán lại</a>
+                    {% endif %}
+                    {% else %}
+                    <a href="{{ url_for('seller_make_payment', period_id=period.iddotthanhtoan) }}"
+                        class="btn btn-primary btn-sm">Thanh toán</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center">Không có đợt thanh toán nào đang mở.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h4 class="mt-4">Lịch sử thanh toán</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Tên đợt</th>
+                <th>Ngày thanh toán</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pay in payment_history %}
+            <tr>
+                <td>{{ pay.tendotthanhtoan }}</td>
+                <td>{{ pay.ngaythanhtoan }}</td>
+                <td>{{ pay.trangthai }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3" class="text-center">Chưa có thanh toán nào.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

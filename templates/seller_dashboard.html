@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Người bán hàng - FoodDelivery{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-store"></i> Dashboard Người bán hàng
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card border-primary">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-utensils"></i> Quản lý thực đơn
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Thêm, sửa, xóa món ăn trong thực đơn</p>
+                <a href="{{ url_for('food_menu') }}" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> Quản lý thực đơn
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card border-success">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-shopping-cart"></i> Đơn hàng
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Xem và quản lý đơn hàng từ khách hàng</p>
+                <a href="#" class="btn btn-success">
+                    <i class="fas fa-list"></i> Xem đơn hàng
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card border-warning">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-tags"></i> Khuyến mãi
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Tạo và quản lý chương trình khuyến mãi</p>
+                <a href="#" class="btn btn-warning">
+                    <i class="fas fa-plus"></i> Tạo khuyến mãi
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-credit-card"></i> Thanh toán phí
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Thanh toán phí thường niên</p>
+                <a href="{{ url_for('seller_payments') }}" class="btn btn-danger">
+                    <i class="fas fa-money-bill"></i> Thanh toán
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar"></i> Thống kê bán hàng
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <div class="stat-box">
+                            <h3 class="text-primary">45</h3>
+                            <p>Đơn hàng hôm nay</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-box">
+                            <h3 class="text-success">2,500,000</h3>
+                            <p>Doanh thu (VNĐ)</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-box">
+                            <h3 class="text-warning">120</h3>
+                            <p>Món ăn</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-box">
+                            <h3 class="text-info">4.8</h3>
+                            <p>Đánh giá trung bình</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

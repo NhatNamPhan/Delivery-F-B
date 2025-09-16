@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Duyệt hồ sơ người bán hàng - FoodDelivery{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-store"></i> Duyệt hồ sơ người bán hàng
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Duyệt hồ sơ người bán hàng</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Danh sách hồ sơ người bán hàng</h5>
+            </div>
+            <div class="card-body">
+                {% if applications %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>CCCD</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for app in applications %}
+                            <tr>
+                                <td>{{ app.idnguoibanhang }}</td>
+                                <td>{{ app.hoten }}</td>
+                                <td>{{ app.email }}</td>
+                                <td>{{ app.sodienthoai }}</td>
+                                <td>{{ app.cccd }}</td>
+                                <td>
+                                    {% if app.trangthai == 'Cho_Duyet' %}
+                                    <span class="badge bg-warning">Chờ duyệt</span>
+                                    {% elif app.trangthai == 'Da_Duyet' %}
+                                    <span class="badge bg-success">Đã duyệt</span>
+                                    {% elif app.trangthai == 'Tu_Choi' %}
+                                    <span class="badge bg-danger">Từ chối</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ url_for('view_seller_details', seller_id=app.idnguoibanhang) }}"
+                                            class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i> Xem
+                                        </a>
+                                        {% if app.trangthai == 'Cho_Duyet' %}
+                                        <a href="{{ url_for('approve_seller', seller_id=app.idnguoibanhang) }}"
+                                            class="btn btn-sm btn-success"
+                                            onclick="return confirm('Bạn có chắc muốn duyệt hồ sơ này?')">
+                                            <i class="fas fa-check"></i> Duyệt
+                                        </a>
+                                        <a href="{{ url_for('reject_seller', seller_id=app.idnguoibanhang) }}"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Bạn có chắc muốn từ chối hồ sơ này?')">
+                                            <i class="fas fa-times"></i> Từ chối
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">Không có hồ sơ nào cần duyệt</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

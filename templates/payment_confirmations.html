@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Xác nhận thanh toán - FoodDelivery{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-credit-card"></i> Xác nhận thanh toán phí thường niên
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Xác nhận thanh toán</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Danh sách thanh toán chờ xác nhận</h5>
+                <a href="{{ url_for('payment_periods') }}" class="btn btn-primary">
+                    <i class="fas fa-calendar"></i> Quản lý đợt thanh toán
+                </a>
+            </div>
+            <div class="card-body">
+                {% if payments %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID Thanh toán</th>
+                                <th>Người bán</th>
+                                <th>Đợt thanh toán</th>
+                                <th>Ngày thanh toán</th>
+                                <th>Minh chứng</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for payment in payments %}
+                            <tr>
+                                <td>{{ payment.idthanhtoan }}</td>
+                                <td>{{ payment.tennguoiban }}</td>
+                                <td>{{ payment.tendotthanhtoan }}</td>
+                                <td>{{ payment.ngaythanhtoan.strftime('%d/%m/%Y') if payment.ngaythanhtoan else 'N/A' }}
+                                </td>
+                                <td>
+                                    {% if payment.hinhanhminchung %}
+                                    <a href="{{ url_for('static', filename='images/payments/' ~ payment.hinhanhminchung) }}"
+                                        target="_blank">
+                                        <img src="{{ url_for('static', filename='images/payments/' ~ payment.hinhanhminchung) }}"
+                                            alt="Minh chứng"
+                                            style="max-width:80px; max-height:80px; border-radius:6px; border:1px solid #ddd;" />
+                                    </a>
+                                    {% else %}
+                                    <span class="text-muted">Không có</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if payment.trangthai == 'Cho_Duyet' %}
+                                    <span class="badge bg-warning">Chờ duyệt</span>
+                                    {% elif payment.trangthai == 'Da_Duyet' %}
+                                    <span class="badge bg-success">Đã duyệt</span>
+                                    {% elif payment.trangthai == 'Tu_Choi' %}
+                                    <span class="badge bg-danger">Từ chối</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if payment.trangthai == 'Cho_Duyet' %}
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ url_for('confirm_payment', payment_id=payment.idthanhtoan) }}"
+                                            class="btn btn-sm btn-success"
+                                            onclick="return confirm('Bạn có chắc muốn xác nhận thanh toán này?')">
+                                            <i class="fas fa-check"></i> Xác nhận
+                                        </a>
+                                        <a href="{{ url_for('reject_payment', payment_id=payment.idthanhtoan) }}"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Bạn có chắc muốn từ chối thanh toán này?')">
+                                            <i class="fas fa-times"></i> Từ chối
+                                        </a>
+                                    </div>
+                                    {% else %}
+                                    <span class="text-muted">Đã xử lý</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">Không có thanh toán nào cần xác nhận</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

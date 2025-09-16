@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Thực đơn - FoodDelivery{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-utensils"></i> Thực đơn
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Bộ lọc</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Loại món ăn</label>
+                    <select class="form-select">
+                        <option>Tất cả</option>
+                        <option>Cơm</option>
+                        <option>Phở</option>
+                        <option>Bánh mì</option>
+                        <option>Đồ uống</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Khoảng giá</label>
+                    <select class="form-select">
+                        <option>Tất cả</option>
+                        <option>Dưới 50,000 VNĐ</option>
+                        <option>50,000 - 100,000 VNĐ</option>
+                        <option>Trên 100,000 VNĐ</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary w-100">Áp dụng</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="/placeholder.svg?height=200&width=300" class="card-img-top" alt="Cơm gà">
+                    <div class="card-body">
+                        <h5 class="card-title">Cơm gà nướng</h5>
+                        <p class="card-text">Cơm gà nướng thơm ngon với nước mắm pha</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-primary fw-bold">45,000 VNĐ</span>
+                            <button class="btn btn-primary btn-sm">Đặt món</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="/placeholder.svg?height=200&width=300" class="card-img-top" alt="Phở bò">
+                    <div class="card-body">
+                        <h5 class="card-title">Phở bò tái</h5>
+                        <p class="card-text">Phở bò tái nóng hổi với nước dùng đậm đà</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-primary fw-bold">55,000 VNĐ</span>
+                            <button class="btn btn-primary btn-sm">Đặt món</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="/placeholder.svg?height=200&width=300" class="card-img-top" alt="Bánh mì">
+                    <div class="card-body">
+                        <h5 class="card-title">Bánh mì thịt nướng</h5>
+                        <p class="card-text">Bánh mì giòn với thịt nướng và rau sống</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-primary fw-bold">25,000 VNĐ</span>
+                            <button class="btn btn-primary btn-sm">Đặt món</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

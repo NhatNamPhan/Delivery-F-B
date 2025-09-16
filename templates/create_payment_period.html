@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Tạo đợt thanh toán - FoodDelivery{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-plus"></i> Tạo đợt thanh toán mới
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('payment_periods') }}">Quản lý đợt thanh toán</a></li>
+                <li class="breadcrumb-item active">Tạo mới</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Thông tin đợt thanh toán</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="ten_dot" class="form-label">Tên đợt thanh toán <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="ten_dot" name="ten_dot" required
+                               placeholder="Ví dụ: Thanh toán phí thường niên Q1/2024">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="ngay_bat_dau" class="form-label">Ngày bắt đầu <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="ngay_bat_dau" name="ngay_bat_dau" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="ngay_ket_thuc" class="form-label">Ngày kết thúc <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="ngay_ket_thuc" name="ngay_ket_thuc" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="mo_ta" class="form-label">Mô tả</label>
+                        <textarea class="form-control" id="mo_ta" name="mo_ta" rows="4"
+                                  placeholder="Mô tả chi tiết về đợt thanh toán này..."></textarea>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('payment_periods') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Tạo đợt thanh toán
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Set minimum date to today
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('ngay_bat_dau').min = today;
+    document.getElementById('ngay_ket_thuc').min = today;
+    
+    // Update end date minimum when start date changes
+    document.getElementById('ngay_bat_dau').addEventListener('change', function() {
+        document.getElementById('ngay_ket_thuc').min = this.value;
+    });
+});
+</script>
+{% endblock %}

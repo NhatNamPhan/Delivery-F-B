@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero-section bg-primary text-white py-5 mb-5 rounded">
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">
+            <i class="fas fa-utensils"></i> Chào mừng đến với FoodDelivery
+        </h1>
+        <p class="lead mb-4">Hệ thống giao đồ ăn trực tuyến tiện lợi và nhanh chóng</p>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <a href="{{ url_for('register') }}" class="btn btn-light btn-lg w-100">
+                            <i class="fas fa-user-plus"></i> Đăng ký ngay
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <a href="{{ url_for('food_menu') }}" class="btn btn-outline-light btn-lg w-100">
+                            <i class="fas fa-list"></i> Xem thực đơn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Khách hàng</h5>
+                <p class="card-text">Đặt món ăn yêu thích, theo dõi đơn hàng và đánh giá dịch vụ</p>
+                <a href="{{ url_for('login') }}" class="btn btn-primary">Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="fas fa-motorcycle fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Người giao hàng</h5>
+                <p class="card-text">Nhận đơn hàng, cập nhật trạng thái và quản lý lịch giao hàng</p>
+                <a href="{{ url_for('login') }}" class="btn btn-success">Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="fas fa-store fa-3x text-warning mb-3"></i>
+                <h5 class="card-title">Người bán hàng</h5>
+                <p class="card-text">Quản lý thực đơn, đơn hàng và chương trình khuyến mãi</p>
+                <a href="{{ url_for('login') }}" class="btn btn-warning">Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="fas fa-cog fa-3x text-danger mb-3"></i>
+                <h5 class="card-title">Quản trị viên</h5>
+                <p class="card-text">Quản lý hệ thống, duyệt hồ sơ và xác nhận thanh toán</p>
+                <a href="{{ url_for('login') }}" class="btn btn-danger">Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-12">
+        <h2 class="text-center mb-4">Món ăn nổi bật</h2>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center">
+            <img src="{{ url_for('static', filename='images/food/pho.jpg') }}" class="card-img-top" alt="Phở bò">
+            <div class="card-body">
+                <h5 class="card-title">Phở Bò</h5>
+                <p class="card-text">Món phở truyền thống với nước dùng đậm đà, thịt bò tươi ngon.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center">
+            <img src="{{ url_for('static', filename='images/food/banhmi.jpg') }}" class="card-img-top" alt="Bánh mì">
+            <div class="card-body">
+                <h5 class="card-title">Bánh Mì</h5>
+                <p class="card-text">Bánh mì giòn rụm, nhân thịt và rau củ tươi ngon.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center">
+            <img src="{{ url_for('static', filename='images/food/comtam.jpg') }}" class="card-img-top" alt="Cơm tấm">
+            <div class="card-body">
+                <h5 class="card-title">Cơm Tấm</h5>
+                <p class="card-text">Cơm tấm sườn nướng thơm lừng, ăn kèm nước mắm chua ngọt.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-12">
+        <h2 class="text-center mb-4">Tính năng nổi bật</h2>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="feature-box text-center p-4">
+            <i class="fas fa-clock fa-2x text-primary mb-3"></i>
+            <h5>Giao hàng nhanh</h5>
+            <p>Đặt hàng và nhận trong vòng 30 phút</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="feature-box text-center p-4">
+            <i class="fas fa-shield-alt fa-2x text-success mb-3"></i>
+            <h5>An toàn vệ sinh</h5>
+            <p>Đảm bảo chất lượng và an toàn thực phẩm</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="feature-box text-center p-4">
+            <i class="fas fa-star fa-2x text-warning mb-3"></i>
+            <h5>Đánh giá minh bạch</h5>
+            <p>Hệ thống đánh giá và phản hồi từ khách hàng</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

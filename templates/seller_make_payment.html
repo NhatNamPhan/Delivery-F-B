@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Thực hiện thanh toán - FoodDelivery{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-credit-card"></i> Thực hiện thanh toán
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('seller_dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('seller_payments') }}">Thanh toán phí</a></li>
+                <li class="breadcrumb-item active">Thực hiện thanh toán</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <!-- Payment Period Info -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle"></i> Thông tin đợt thanh toán
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Tên đợt:</strong> {{ period.tendotthanhtoan }}</p>
+                        <p><strong>Thời gian:</strong>
+                            {{ period.ngaybatdau.strftime('%d/%m/%Y') if period.ngaybatdau else 'N/A' }} -
+                            {{ period.ngayketthuc.strftime('%d/%m/%Y') if period.ngayketthuc else 'N/A' }}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Mô tả:</strong> {{ period.mota or 'Không có mô tả' }}</p>
+                        <p><strong>Số tiền:</strong> <span class="text-danger fw-bold">500,000 VNĐ</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bank Transfer Info -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-university"></i> Thông tin chuyển khoản
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="bank-info">
+                            <p><strong>Ngân hàng:</strong> Vietcombank</p>
+                            <p><strong>Số tài khoản:</strong>
+                                <span class="badge bg-dark">1234567890</span>
+                                <button class="btn btn-sm btn-outline-secondary ms-2"
+                                    onclick="copyToClipboard('1234567890')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </p>
+                            <p><strong>Chủ tài khoản:</strong> CONG TY FOODDELIVERY</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="transfer-info">
+                            <p><strong>Số tiền:</strong>
+                                <span class="badge bg-danger">500,000 VNĐ</span>
+                                <button class="btn btn-sm btn-outline-secondary ms-2"
+                                    onclick="copyToClipboard('500000')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </p>
+                            <p><strong>Nội dung chuyển khoản:</strong>
+                                <span class="badge bg-info">{{ session.user_id }} - Phi thuong nien</span>
+                                <button class="btn btn-sm btn-outline-secondary ms-2"
+                                    onclick="copyToClipboard('{{ session.user_id }} - Phi thuong nien')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-upload"></i> Xác nhận thanh toán
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="minh_chung" class="form-label">
+                            Link ảnh minh chứng thanh toán <span class="text-danger">*</span>
+                        </label>
+                        <input type="file" class="form-control" id="minh_chung" name="minh_chung" accept="image/*"
+                            required>
+                        <div class="form-text">
+                            Vui lòng upload ảnh biên lai/sao kê từ máy tính của bạn (chỉ nhận file ảnh)
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Lưu ý:</strong> Vui lòng kiểm tra kỹ thông tin chuyển khoản trước khi thực hiện.
+                        Sau khi gửi, bạn cần chờ admin duyệt thanh toán.
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="confirm_payment" required>
+                        <label class="form-check-label" for="confirm_payment">
+                            Tôi xác nhận đã thực hiện chuyển khoản đúng thông tin và số tiền
+                        </label>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('seller_payments') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> Xác nhận thanh toán
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function () {
+            // Show success message
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-success position-fixed';
+            toast.style.top = '20px';
+            toast.style.right = '20px';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = '<i class="fas fa-check"></i> Đã copy: ' + text;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 2000);
+        });
+    }
+</script>
+{% endblock %}

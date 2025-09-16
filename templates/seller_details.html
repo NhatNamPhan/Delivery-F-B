@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Chi tiết hồ sơ người bán hàng - FoodDelivery{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-user"></i> Chi tiết hồ sơ người bán hàng
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('seller_applications') }}">Duyệt hồ sơ</a></li>
+                <li class="breadcrumb-item active">Chi tiết hồ sơ</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Thông tin cá nhân</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Họ tên:</strong> {{ seller.hoten }}</p>
+                        <p><strong>Email:</strong> {{ seller.email }}</p>
+                        <p><strong>Số điện thoại:</strong> {{ seller.sodienthoai }}</p>
+                        <p><strong>CCCD:</strong> {{ seller.cccd }}</p>
+                        <p><strong>Trạng thái:</strong>
+                            {% if seller.trangthai == 'Cho_Duyet' %}
+                            <span class="badge bg-warning">Chờ duyệt</span>
+                            {% elif seller.trangthai == 'Da_Duyet' %}
+                            <span class="badge bg-success">Đã duyệt</span>
+                            {% elif seller.trangthai == 'Tu_Choi' %}
+                            <span class="badge bg-danger">Từ chối</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Địa chỉ:</strong> {{ seller.sonha_thon }}, {{ seller.xa_phuong }}, {{
+                            seller.huyen_quan }}, {{ seller.tinh_thanhpho }}</p>
+                        <p><strong>Giấy phép kinh doanh:</strong> {{ seller.magiayphepkinhdoanh }}</p>
+                        <p><strong>Giấy VSATTP:</strong> {{ seller.magiayvesinhantoanthucpham }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Thao tác</h5>
+            </div>
+            <div class="card-body">
+                {% if seller.trangthai == 'Cho_Duyet' %}
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('approve_seller', seller_id=seller.idnguoibanhang) }}" class="btn btn-success"
+                        onclick="return confirm('Bạn có chắc muốn duyệt hồ sơ này?')">
+                        <i class="fas fa-check"></i> Duyệt hồ sơ
+                    </a>
+                    <a href="{{ url_for('reject_seller', seller_id=seller.idnguoibanhang) }}" class="btn btn-danger"
+                        onclick="return confirm('Bạn có chắc muốn từ chối hồ sơ này?')">
+                        <i class="fas fa-times"></i> Từ chối hồ sơ
+                    </a>
+                </div>
+                {% else %}
+                <p class="text-muted">Hồ sơ đã được xử lý</p>
+                {% endif %}
+                <hr>
+                <a href="{{ url_for('seller_applications') }}" class="btn btn-secondary w-100">
+                    <i class="fas fa-arrow-left"></i> Quay lại danh sách
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

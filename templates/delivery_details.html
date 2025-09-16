@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Chi tiết hồ sơ người giao hàng - FoodDelivery{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-user"></i> Chi tiết hồ sơ người giao hàng
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('delivery_applications') }}">Duyệt hồ sơ</a></li>
+                <li class="breadcrumb-item active">Chi tiết hồ sơ</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Thông tin cá nhân</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>ID:</strong> {{delivery.idnguoigiaohang}}</p>
+                        <p><strong>Họ tên:</strong> {{ delivery.hoten }}</p>
+                        <p><strong>Email:</strong> {{ delivery.email }}</p>
+                        <p><strong>Số điện thoại:</strong> {{ delivery.sodienthoai }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>CCCD:</strong> {{ delivery.cccd }}</p>
+                        <p><strong>Bằng lái xe:</strong> {{ delivery.banglaixe }}</p>
+                        <p><strong>Giấy đăng ký xe:</strong> {{ delivery.giaydangkyxe }}</p>
+                        <p><strong>Trạng thái:</strong> 
+                            {% if delivery.trangthai == 'Cho_Duyet' %}
+                                <span class="badge bg-warning">Chờ duyệt</span>
+                            {% elif delivery.trangthai == 'Da_Duyet' %}
+                                <span class="badge bg-success">Đã duyệt</span>
+                            {% elif delivery.trangthai == 'Tu_Choi' %}
+                                <span class="badge bg-danger">Từ chối</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Thao tác</h5>
+            </div>
+            <div class="card-body">
+                {% if delivery.trangthai == 'Cho_Duyet' %}
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('approve_delivery', delivery_id=delivery.idnguoigiaohang) }}" 
+                       class="btn btn-success"
+                       onclick="return confirm('Bạn có chắc muốn duyệt hồ sơ này?')">
+                        <i class="fas fa-check"></i> Duyệt hồ sơ
+                    </a>
+                    <a href="{{ url_for('reject_delivery', delivery_id=delivery.idnguoigiaohang) }}" 
+                       class="btn btn-danger"
+                       onclick="return confirm('Bạn có chắc muốn từ chối hồ sơ này?')">
+                        <i class="fas fa-times"></i> Từ chối hồ sơ
+                    </a>
+                </div>
+                {% else %}
+                <p class="text-muted">Hồ sơ đã được xử lý</p>
+                {% endif %}
+                <hr>
+                <a href="{{ url_for('delivery_applications') }}" class="btn btn-secondary w-100">
+                    <i class="fas fa-arrow-left"></i> Quay lại danh sách
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

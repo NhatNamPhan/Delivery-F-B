@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Khách hàng - FoodDelivery{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-user"></i> Dashboard Khách hàng
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card border-primary">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-utensils"></i> Đặt món ăn
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Xem thực đơn và đặt món ăn yêu thích</p>
+                <a href="{{ url_for('food_menu') }}" class="btn btn-primary">
+                    <i class="fas fa-list"></i> Xem thực đơn
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card border-success">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-history"></i> Lịch sử đơn hàng
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Xem và quản lý các đơn hàng đã đặt</p>
+                <a href="#" class="btn btn-success">
+                    <i class="fas fa-eye"></i> Xem lịch sử
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card border-warning">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-tags"></i> Khuyến mãi
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Xem các chương trình khuyến mãi hiện có</p>
+                <a href="#" class="btn btn-warning">
+                    <i class="fas fa-gift"></i> Xem khuyến mãi
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-star"></i> Đánh giá
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Đánh giá người giao hàng và dịch vụ</p>
+                <a href="#" class="btn btn-info">
+                    <i class="fas fa-star"></i> Đánh giá ngay
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-shopping-cart"></i> Đơn hàng gần đây
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Mã đơn hàng</th>
+                                <th>Ngày đặt</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#DH001</td>
+                                <td>15/12/2024</td>
+                                <td>150,000 VNĐ</td>
+                                <td><span class="badge bg-success">Đã giao</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary">Xem chi tiết</button>
+                                    <button class="btn btn-sm btn-warning">Đánh giá</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#DH002</td>
+                                <td>14/12/2024</td>
+                                <td>200,000 VNĐ</td>
+                                <td><span class="badge bg-info">Đang giao</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary">Xem chi tiết</button>
+                                    <button class="btn btn-sm btn-danger">Hủy đơn</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
